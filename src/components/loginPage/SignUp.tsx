@@ -84,30 +84,27 @@ const SignUp = ({ onCheckLogin }: { onCheckLogin: VoidFunction }) => {
           label="First Name"
           placeholder="Enter first name"
           control={control}
-        ></InputTextField>
+        />
         <InputTextField
           name="lastName"
           label="Last Name"
           placeholder="Enter last name"
           control={control}
-        ></InputTextField>
+        />
         <InputTextField
           name="email"
           label="Email"
           placeholder="Enter Email"
           control={control}
-        ></InputTextField>
+        />
         <InputTextField
           name="password"
           label="Password "
           placeholder="Enter password"
           control={control}
-        ></InputTextField>
+        />
         <div className="flex items-center w-full justify-start">
-          <Checkbox
-            style={{ padding: "0 8px 0 0", color: "rgb(203 213 225)" }}
-            onChange={(e) => setCheckAgree(e.target.checked)}
-          />
+          <Checkbox onChange={(e) => setCheckAgree(e.target.checked)} />
           <p>
             i agree to{" "}
             <a href="" className="text-violet-400">
@@ -117,12 +114,7 @@ const SignUp = ({ onCheckLogin }: { onCheckLogin: VoidFunction }) => {
         </div>
 
         <p className="text-red-500 font-simebold">{errMess}</p>
-        <Button
-          fullWidth
-          style={{ backgroundColor: "rgb(139 92 246)", color: "white" }}
-          type="submit"
-          disabled={!formState.isValid}
-        >
+        <Button fullWidth type="submit" disabled={!formState.isValid}>
           Submit
         </Button>
         <div>

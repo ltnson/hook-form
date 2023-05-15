@@ -72,26 +72,19 @@ const SignIn = ({ onCheckLogin }: { onCheckLogin: VoidFunction }) => {
           label="Email"
           placeholder="Enter Email"
           control={control}
-        ></InputTextField>
+        />
         <InputTextField
           name="password"
           label="Password"
           placeholder="Enter password"
           control={control}
-        ></InputTextField>
+        />
         <div className="flex items-center  w-full justify-start">
-          <Checkbox
-            style={{ padding: "0 8px 0 0", color: "rgb(203 213 225)" }}
-          />
+          <Checkbox />
           <p>Remember me ?</p>
         </div>
         <p className="text-red-500 font-simebold">{errMess}</p>
-        <Button
-          className="block w-full"
-          style={{ backgroundColor: "rgb(139 92 246)", color: "white" }}
-          type="submit"
-          disabled={!formState.isValid}
-        >
+        <Button fullWidth type="submit" disabled={!formState.isValid}>
           Login
         </Button>
         <p className="text-red-500">{}</p>

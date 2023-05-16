@@ -47,7 +47,7 @@ const SignUp = ({ onCheckLogin }: { onCheckLogin: VoidFunction }) => {
       email: "",
       password: "",
     },
-    mode: "onChange",
+    mode: "onBlur",
   });
   const { control, handleSubmit, formState } = methods;
 
@@ -72,7 +72,7 @@ const SignUp = ({ onCheckLogin }: { onCheckLogin: VoidFunction }) => {
   return (
     <FormProvider {...methods}>
       <form
-        className="flex flex-col items-center gap-4 mx-10 my-6 h-screen"
+        className="flex flex-col items-center bg-white gap-4 px-10 py-6 h-screen"
         onSubmit={handleSubmit(onSubmit)}
       >
         <div>

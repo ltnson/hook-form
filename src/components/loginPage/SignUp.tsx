@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { useAddAccount } from "../Api/authAPI";
@@ -8,6 +8,7 @@ import axios from "axios";
 import { useForm, FormProvider } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
+import toast, { Toaster } from "react-hot-toast";
 
 import { Button, Checkbox } from "@mui/material";
 import InputTextField from "./FormController/InputTextField";
@@ -55,19 +56,17 @@ const SignUp = ({ onCheckLogin }: { onCheckLogin: VoidFunction }) => {
   const onSubmit = (dataForm: FormSignUp) => {
     if (checkAgree) {
       mutateAsync(dataForm).then(() => onCheckLogin());
+      if (error) {
+        if (axios.isAxiosError(error)) {
+          toast.error(error?.response?.data.errors.message[0]);
+        } else {
+          console.log(error);
+        }
+      }
     } else {
-      alert("please read the privacy policy & terms and agree");
+      toast("please read the privacy policy & terms and agree");
     }
   };
-  const errMess = useMemo(() => {
-    if (error) {
-      if (axios.isAxiosError(error)) {
-        return error?.response?.data.errors.message[0];
-      } else {
-        return error;
-      }
-    }
-  }, [error]);
 
   return (
     <FormProvider {...methods}>
@@ -107,13 +106,12 @@ const SignUp = ({ onCheckLogin }: { onCheckLogin: VoidFunction }) => {
           <Checkbox onChange={(e) => setCheckAgree(e.target.checked)} />
           <p>
             i agree to{" "}
-            <a href="" className="text-violet-400">
+            <a href="" className="text-violet-500">
               privacy policy & terms
             </a>
           </p>
         </div>
 
-        <p className="text-red-500 font-simebold">{errMess}</p>
         <Button fullWidth type="submit" disabled={!formState.isValid}>
           Submit
         </Button>
@@ -122,7 +120,7 @@ const SignUp = ({ onCheckLogin }: { onCheckLogin: VoidFunction }) => {
             Already have an account?{" "}
             <a
               href=""
-              className="text-violet-400"
+              className="text-violet-500"
               onClick={() => navigate("/sign-in")}
             >
               {" "}
@@ -132,6 +130,18 @@ const SignUp = ({ onCheckLogin }: { onCheckLogin: VoidFunction }) => {
         </div>
         <FooterForm />
       </form>
+      <Toaster
+        position="top-right"
+        reverseOrder={false}
+        toastOptions={{
+          className: "",
+          style: {
+            border: "0.2px solid #7367F0",
+            padding: "8px",
+            color: "#7367F0",
+          },
+        }}
+      />
     </FormProvider>
   );
 };

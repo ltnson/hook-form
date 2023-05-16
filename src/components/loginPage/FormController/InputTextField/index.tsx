@@ -19,14 +19,32 @@ const InputTextField = <T extends FieldValues>(props: InputCommonProps<T>) => {
       name={name}
       render={({ field, fieldState: { error } }) => (
         <FormControl fullWidth>
-          {label && (
+          {label === "Password" ? (
+            <Typography
+              component="label"
+              htmlFor={`form-test-${name}`}
+              sx={{
+                marginBottom: 1,
+                display: "flex",
+                justifyContent: "space-between",
+              }}
+              className={classNameLabel}
+            >
+              <p>
+                {label} <span className="text-red-400 ">*</span>
+              </p>
+              <a href="" className="text-violet-500">
+                Forgot Password?
+              </a>
+            </Typography>
+          ) : (
             <Typography
               component="label"
               htmlFor={`form-test-${name}`}
               sx={{ marginBottom: 1 }}
               className={classNameLabel}
             >
-              {label} <span className="text-red-500">*</span>
+              {label} <span className="text-red-400">*</span>
             </Typography>
           )}
           {label === "Password " ? (

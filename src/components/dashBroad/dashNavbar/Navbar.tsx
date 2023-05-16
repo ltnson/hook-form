@@ -25,10 +25,8 @@ const Navbar = ({ onCheckLogin }: { onCheckLogin: VoidFunction }) => {
         <Typography sx={{ flexGrow: 1 }}>
           <div className="flex justify-end">
             <div>
-              <span className="text-bold text-xl text-slate-700">
-                {displayName}
-              </span>
-              <p className="text-sm">avalible</p>
+              <span className=" text-xl text-slate-700">{displayName}</span>
+              <p className="text-sm text-end">avalible</p>
             </div>
           </div>
         </Typography>

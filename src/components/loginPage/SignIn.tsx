@@ -1,4 +1,3 @@
-import { useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { FormSignIn } from "../types/types";
@@ -8,6 +7,7 @@ import axios from "axios";
 import { useForm, FormProvider } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
+import toast, { Toaster } from "react-hot-toast";
 
 import { Button, Checkbox } from "@mui/material";
 import InputTextField from "./FormController/InputTextField";
@@ -43,17 +43,14 @@ const SignIn = ({ onCheckLogin }: { onCheckLogin: VoidFunction }) => {
   const { mutateAsync, error } = useSignInAccount();
   const onSubmit = (dataForm: FormSignIn) => {
     mutateAsync(dataForm).then(() => onCheckLogin());
-  };
-
-  const errMess = useMemo(() => {
     if (error) {
       if (axios.isAxiosError(error)) {
-        return error?.response?.data.errors.message[0];
+        toast.error(error?.response?.data.errors.message[0]);
       } else {
-        return error;
+        console.log(error);
       }
     }
-  }, [error]);
+  };
 
   return (
     <FormProvider {...methods}>
@@ -83,7 +80,7 @@ const SignIn = ({ onCheckLogin }: { onCheckLogin: VoidFunction }) => {
           <Checkbox />
           <p>Remember me ?</p>
         </div>
-        <p className="text-red-500 font-simebold">{errMess}</p>
+
         <Button fullWidth type="submit" disabled={!formState.isValid}>
           Login
         </Button>
@@ -93,7 +90,7 @@ const SignIn = ({ onCheckLogin }: { onCheckLogin: VoidFunction }) => {
             New on our platform?{" "}
             <a
               href=""
-              className="text-violet-400"
+              className="text-violet-500"
               onClick={() => navigate("/sign-up")}
             >
               {" "}
@@ -103,6 +100,18 @@ const SignIn = ({ onCheckLogin }: { onCheckLogin: VoidFunction }) => {
         </div>
         <FooterForm />
       </form>
+      <Toaster
+        position="top-right"
+        reverseOrder={false}
+        toastOptions={{
+          className: "",
+          style: {
+            border: "0.2px solid #7367F0",
+            padding: "8px",
+            color: "#7367F0",
+          },
+        }}
+      />
     </FormProvider>
   );
 };
